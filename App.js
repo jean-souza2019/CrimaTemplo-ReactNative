@@ -30,7 +30,9 @@ export default function App() {
       }
       >
 
-        { }
+        {
+          
+        }
         <Stack.Screen
           name="Menu"
           component={Menu}

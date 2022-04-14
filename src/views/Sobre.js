@@ -1,48 +1,24 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+import Header from '../components/Header';
 
-export default function Home({ navigation }) {
-
-    const [litrosConsumidos, setLitrosConsumidos] = useState()
-    const [kmsRodados, setKmsRodados] = useState()
-
-    calculoMedia = () => {
-        if (kmsRodados.length >= 1 && litrosConsumidos.length  >= 1) {
-            let kmsPorLitro = (parseFloat(kmsRodados) / parseFloat(litrosConsumidos))
-            navigation.navigate("CalculoConsumo", {kmsPorLitro: kmsPorLitro})
-        }
-    }
-
+export default function Sobre({ navigation }) {
     return (
-        <View style={styles.container}>
-            <Text style={styles.headerHome}>Informe abaixo os dados parar realizar o calculo do consumo do seu veículo</Text>
+        <View>
+            <Header tela={"Sobre"} navigation={navigation} />
             <View style={styles.container}>
-                <View>
-                    <Text style={{ margin: 10 }}>Quantidade Litros Consumido:</Text>
-                    <TextInput
-                        value={litrosConsumidos}
-                        onChangeText={setLitrosConsumidos}
-                        style={styles.txtInp}
-                        keyboardType="numeric"
-                    />
-                    <Text style={{ margin: 10 }}>Quantidade KMs Rodados:</Text>
-                    <TextInput
-                        value={kmsRodados}
-                        onChangeText={setKmsRodados}
-                        style={styles.txtInp}
-                        keyboardType="numeric"
-                    />
-                </View>
-                <View style={styles.btnCalcular}>
-                    <Button
-                        title='Calcular'
-                        onPress={calculoMedia}
-                        color="#FFF"
-                    />
-                </View>
+                <Text style={styles.headerHome}>Developed by Jean Marcos de Souza</Text>
+                <View style={styles.container}>
+                    <View>
+                        <Text style={{ margin: 10 }}>RA: 1116403</Text>
+                        <Text style={{ margin: 10 }}>E-mail: jiamarcos@outlook.com.br</Text>
+                        <Text style={{ margin: 10 }}>Linkedin: /jean-souza16</Text>
+                        <Text style={{ margin: 10 }}>Github: /jean-souza2019</Text>
 
-                <StatusBar style="auto" />
+                    </View>
+                    <StatusBar style="auto" />
+                </View>
             </View>
         </View>
     );
@@ -61,19 +37,6 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 20,
         textAlign: 'center'
-    }, txtInp: {
-        textAlign: 'center',
-        backgroundColor: '#E4E4E4',
-        borderRadius: 10,
-        borderWidth: 1,
-        height: 30,
-        width: 200
-
-    }, btnCalcular: {
-        marginTop: 20,
-        borderRadius: 10,
-        borderWidth: 1,
-        backgroundColor: '#1D983A',
     }
 
 });
