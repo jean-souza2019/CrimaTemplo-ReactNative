@@ -1,20 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import {Button, Image} from 'react-native';
+
+import Menu from './src/views/Menu';
+import PrevisaoCidade from './src/views/PrevisaoCidade';
+import Sobre from './src/views/Sobre';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Menu'
+        screenOptions={{
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: '#0080CD',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitle: () => (
+            <Image style={{ width: 190, height: 30 }} source={require("./assets/logo.png")} />
+          ),
+        }
+      }
+      >
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+        { }
+        <Stack.Screen
+          name="Menu"
+          component={Menu}
+          options={{ title: 'Crima Templo OFC' }} />
+
+        <Stack.Screen
+          name="PrevisaoCidade"
+          component={PrevisaoCidade}
+          options={{ title: "Previsão do tempo por cidade" }} />
+
+        <Stack.Screen
+          name="Sobre"
+          component={Sobre}
+          options={{ title: "Informativo sobre" }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+};
