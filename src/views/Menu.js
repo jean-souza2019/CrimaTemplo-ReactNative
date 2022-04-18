@@ -8,13 +8,41 @@ import Cidade from '../components/Cidade'
 
 export default function Home({ navigation }) {
 
-    const [cidades, setCidades] = useState(["Passo Fundo", "Marau",
-        "Carazinho", "Soledade", "Erechim"])
+    const cidades = [
+        {
+            id: 1,
+            nome: "Passo Fundo"
+        },
+        {
+            id: 2,
+            nome: "Marau"
+        },
+        {
+            id: 3,
+            nome: "Carazinho"
+        },
+        {
+            id: 4,
+            nome: "Soledade"
+        },
+        {
+            id: 5,
+            nome: "Erechim"
+        },
+        {
+            id: 6,
+            nome: "Marau"
+        }];
 
     useLayoutEffect(() => {
         // console.log(cidades);
     }, [])
 
+    const Item = ({ title }) => (
+        <View style={styles.item}>
+            <Text style={styles.title}>{title}</Text>
+        </View>
+    );
 
     return (
         <View style={styles.background}>
@@ -22,17 +50,17 @@ export default function Home({ navigation }) {
             <Text style={styles.headerHome}>Selecione a cidade para ver a previsão do tempo detalhada</Text>
             <View style={styles.container}>
                 <View>
-                    {/* <FlatList
+                    <FlatList
                         data={cidades}
-                        renderItem={({ cidade }) =>
+                        renderItem={({ item }) => (
                             <Cidade
-                                dados={cidade}
-                                navigation={navigation}
-                            />
-                        }
-                        keyExtractor={cidade => cidade.email}
+                                nomeCidade={item.nome}
+                                navigation={navigation} />
+                        )}
 
-                    /> */}
+                        keyExtractor={item => item.id}
+
+                    />
                 </View>
 
                 <StatusBar style="auto" />

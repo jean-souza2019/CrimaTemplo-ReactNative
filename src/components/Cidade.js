@@ -1,56 +1,24 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React, { useState, useLayoutEffect } from 'react'
 
-export default function Cidade(props) {
-
-    const data = props.dados
-    const [nome, setNome] = useState("Não Informado")
-    const [email, setEmail] = useState("Não Informado")
-    const [telefone, setTelefone] = useState("Não Informado")
-    const [foto, setFoto] = useState(null)
+export default function Cidade({ nomeCidade, navigation }) {
+    const [nome, setNome] = useState("tester")
 
     useLayoutEffect(() => {
-        console.log(data);
+        if (nomeCidade) {
+            setNome(nomeCidade)
+        }
+
     }, [])
 
 
     return (
 
         <TouchableOpacity
-            onPress={() => props.navigation.navigate("Dados", props.dados)}
+            onPress={() => navigation.navigate("CidadeDetalhada", nomeCidade)}
         >
             <View style={styles.container}>
-                <View style={styles.linha}>
-                    <View style={styles.foto}>
-                        <Image
-                            style={styles.imagem}
-                            source={{
-                                uri: foto
-                            }}
-                        />
-                    </View>
-                    <View style={styles.dados}>
-
-                        <View style={styles.coluna}><Text>Nome:</Text></View>
-                        <View style={styles.valor}>
-                            <Text style={{
-                                fontWeight: "bold",
-                                color: data.name ? "black" : "red"
-                            }}>{nome}</Text>
-                        </View>
-                        <View style={styles.coluna} ><Text>Telefone:</Text></View>
-                        <View style={styles.valor}>
-                            <Text style={{
-                                color: data.cell ? "black" : "red"
-                            }}>{telefone}</Text></View>
-                        <View style={styles.coluna} ><Text>E-mail:</Text></View>
-                        <View style={styles.valor}>
-                            <Text style={{
-                                color: data.email ? "black" : "red"
-                            }}>{email}</Text></View>
-
-                    </View>
-                </View>
+                <Text style={styles.lineText}>{nome}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -62,20 +30,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         borderColor: "gray",
-        margin: 5
-
-    }, linha: {
-        flexDirection: "row"
-    }, coluna: {
-        flex: 1
-    }, valor: {
-        flex: 4
-    }, foto: {
-        flex: 1
-    }, dados: {
-        flex: 4
-    }, imagem: {
-        width: 50,
-        height: 50,
-    },
+        margin: 5,
+    }, lineText: {
+        textAlign: 'center',
+        fontSize: 25,
+        fontWeight: 'bold'
+    }
 });
