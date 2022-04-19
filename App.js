@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { Button, Image } from 'react-native';
+import { Image } from 'react-native';
 
 import Menu from './src/views/Menu';
 import PrevisaoCidade from './src/views/PrevisaoCidade';

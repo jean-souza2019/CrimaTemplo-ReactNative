@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React, { useState, useLayoutEffect } from 'react'
 
-export default function Cidade({ nomeCidade, navigation }) {
-    const [nome, setNome] = useState("tester")
+export default function Cidade({ cidade, navigation }) {
+    const [nome, setNome] = useState("")
 
+    const {nomeCidade} = cidade;
+    
     useLayoutEffect(() => {
         if (nomeCidade) {
             setNome(nomeCidade)
@@ -15,7 +17,7 @@ export default function Cidade({ nomeCidade, navigation }) {
     return (
 
         <TouchableOpacity
-            onPress={() => navigation.navigate("CidadeDetalhada", nomeCidade)}
+            onPress={() => navigation.navigate("PrevisaoCidade", cidade)}
         >
             <View style={styles.container}>
                 <Text style={styles.lineText}>{nome}</Text>

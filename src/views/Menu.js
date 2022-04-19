@@ -6,33 +6,10 @@ import styles from './Menu.style';
 import Header from '../components/Header';
 import Cidade from '../components/Cidade'
 
+import cidades from '../services/database/cidades.json';
+
 export default function Home({ navigation }) {
 
-    const cidades = [
-        {
-            id: 1,
-            nome: "Passo Fundo"
-        },
-        {
-            id: 2,
-            nome: "Marau"
-        },
-        {
-            id: 3,
-            nome: "Carazinho"
-        },
-        {
-            id: 4,
-            nome: "Soledade"
-        },
-        {
-            id: 5,
-            nome: "Erechim"
-        },
-        {
-            id: 6,
-            nome: "Marau"
-        }];
 
     useLayoutEffect(() => {
         // console.log(cidades);
@@ -54,11 +31,14 @@ export default function Home({ navigation }) {
                         data={cidades}
                         renderItem={({ item }) => (
                             <Cidade
-                                nomeCidade={item.nome}
+                                cidade={{
+                                    "nomeCidade": item.nome,
+                                    "localidade": item.localidade
+                                }}
                                 navigation={navigation} />
                         )}
 
-                        keyExtractor={item => item.id}
+                        keyExtractor={item => item.localidade}
 
                     />
                 </View>

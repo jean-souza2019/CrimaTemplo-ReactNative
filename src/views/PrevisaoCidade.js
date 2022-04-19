@@ -1,79 +1,162 @@
-import React, { useState } from 'react'
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, Text, Button, TextInput } from 'react-native';
+import React, { useEffect, useState } from 'react'
+import { View, Text, StyleSheet, Image } from 'react-native'
+import moment from 'moment'
 
-export default function Home({ navigation }) {
+import { ConsultaPrevisao } from '../services/ConsultaPrevisao'
 
-    const [litrosConsumidos, setLitrosConsumidos] = useState()
-    const [kmsRodados, setKmsRodados] = useState()
+export default function PrevisaoCidade(props) {
+    const { nomeCidade, localidade } = props.route.params
+    const [temperaturaManha, setTemperaturaManha] = useState({})
+    const [temperaturaTarde, setTemperaturaTarde] = useState({})
+    const [temperaturaNoite, setTemperaturaNoite] = useState({})
 
-    calculoMedia = () => {
-        if (kmsRodados.length >= 1 && litrosConsumidos.length  >= 1) {
-            let kmsPorLitro = (parseFloat(kmsRodados) / parseFloat(litrosConsumidos))
-            navigation.navigate("CalculoConsumo", {kmsPorLitro: kmsPorLitro})
-        }
-    }
+    useEffect(async () => {
+        const dataHoje = moment(new Date()).format('DD/MM/YYYY');
+        const previsaoHoje = await ConsultaPrevisao(localidade);
+        setTemperaturaManha(previsaoHoje[localidade][dataHoje]['manha']);
+        setTemperaturaTarde(previsaoHoje[localidade][dataHoje]['tarde']);
+        setTemperaturaNoite(previsaoHoje[localidade][dataHoje]['noite']);
+    }, [])
 
     return (
         <View style={styles.container}>
-            <Text style={styles.headerHome}>Informe abaixo os dados parar realizar o calculo do consumo do seu veículo</Text>
-            <View style={styles.container}>
-                <View>
-                    <Text style={{ margin: 10 }}>Quantidade Litros Consumido:</Text>
-                    <TextInput
-                        value={litrosConsumidos}
-                        onChangeText={setLitrosConsumidos}
-                        style={styles.txtInp}
-                        keyboardType="numeric"
-                    />
-                    <Text style={{ margin: 10 }}>Quantidade KMs Rodados:</Text>
-                    <TextInput
-                        value={kmsRodados}
-                        onChangeText={setKmsRodados}
-                        style={styles.txtInp}
-                        keyboardType="numeric"
-                    />
-                </View>
-                <View style={styles.btnCalcular}>
-                    <Button
-                        title='Calcular'
-                        onPress={calculoMedia}
-                        color="#FFF"
-                    />
+            <View>
+
+
+                <View style={styles.linha}>
+                    <View style={styles.coluna}><Text style={styles.fontTextoTitulo}>Cidade:</Text></View>
+                    <View style={styles.valor}>
+                        <Text style={styles.fontTextoCorpo}>{nomeCidade}</Text>
+                    </View>
                 </View>
 
-                <StatusBar style="auto" />
+                <View style={styles.container}>
+                    <View style={styles.linha}>
+                        <View style={styles.coluna} >
+                            <Text style={styles.fontTextoTituloCard}>Manha
+                                <Image
+                                    style={styles.imagem}
+                                    source={{
+                                        uri: temperaturaManha.icone
+                                    }}
+                                />
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={styles.linha}>
+                        <View style={styles.coluna} ><Text style={styles.fontTextoTitulo}>Resumo:</Text></View>
+                        <View style={styles.valor}>
+                            <Text style={styles.fontTextoCorpo}>{temperaturaManha.resumo}</Text></View>
+                    </View>
+
+                    <View style={styles.linha}>
+                        <View style={styles.coluna} ><Text style={styles.fontTextoTitulo}>Temp. Max:</Text></View>
+                        <View style={styles.valor}>
+                            <Text style={styles.fontTextoCorpo}>{temperaturaManha.temp_max} °C</Text></View>
+                    </View>
+
+                    <View style={styles.linha}>
+                        <View style={styles.coluna} ><Text style={styles.fontTextoTitulo}>Temp. Min:</Text></View>
+                        <View style={styles.valor}>
+                            <Text style={styles.fontTextoCorpo}>{temperaturaManha.temp_min}°C</Text></View>
+                    </View>
+                </View>
+
+                <View style={styles.container}>
+                    <View style={styles.linha}>
+                        <View style={styles.coluna} >
+                            <Text style={styles.fontTextoTituloCard}>Tarde
+                                <Image
+                                    style={styles.imagem}
+                                    source={{
+                                        uri: temperaturaTarde.icone
+                                    }}
+                                />
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={styles.linha}>
+                        <View style={styles.coluna} ><Text style={styles.fontTextoTitulo}>Resumo:</Text></View>
+                        <View style={styles.valor}>
+                            <Text style={styles.fontTextoCorpo}>{temperaturaTarde.resumo}</Text></View>
+                    </View>
+
+                    <View style={styles.linha}>
+                        <View style={styles.coluna} ><Text style={styles.fontTextoTitulo}>Temp. Max:</Text></View>
+                        <View style={styles.valor}>
+                            <Text style={styles.fontTextoCorpo}>{temperaturaTarde.temp_max} °C</Text></View>
+                    </View>
+
+                    <View style={styles.linha}>
+                        <View style={styles.coluna} ><Text style={styles.fontTextoTitulo}>Temp. Min:</Text></View>
+                        <View style={styles.valor}>
+                            <Text style={styles.fontTextoCorpo}>{temperaturaTarde.temp_min}°C</Text></View>
+                    </View>
+                </View>
+
+                <View style={styles.container}>
+                    <View style={styles.linha}>
+                        <View style={styles.coluna} >
+                            <Text style={styles.fontTextoTituloCard}>Noite
+                                <Image
+                                    style={styles.imagem}
+                                    source={{
+                                        uri: temperaturaNoite.icone
+                                    }}
+                                />
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={styles.linha}>
+                        <View style={styles.coluna} ><Text style={styles.fontTextoTitulo}>Resumo:</Text></View>
+                        <View style={styles.valor}>
+                            <Text style={styles.fontTextoCorpo}>{temperaturaNoite.resumo}</Text></View>
+                    </View>
+
+                    <View style={styles.linha}>
+                        <View style={styles.coluna} ><Text style={styles.fontTextoTitulo}>Temp. Max:</Text></View>
+                        <View style={styles.valor}>
+                            <Text style={styles.fontTextoCorpo}>{temperaturaNoite.temp_max} °C</Text></View>
+                    </View>
+
+                    <View style={styles.linha}>
+                        <View style={styles.coluna} ><Text style={styles.fontTextoTitulo}>Temp. Min:</Text></View>
+                        <View style={styles.valor}>
+                            <Text style={styles.fontTextoCorpo}>{temperaturaNoite.temp_min}°C</Text></View>
+                    </View>
+                </View>
+
             </View>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
     container: {
-        borderWidth: 1,
-        padding: 3,
-        borderRadius: 10,
-        margin: 5,
-        textAlign: 'center',
-        alignItems: 'center'
-    }, headerHome: {
-        marginTop: 20,
         padding: 10,
-        fontSize: 20,
-        textAlign: 'center'
-    }, txtInp: {
-        textAlign: 'center',
-        backgroundColor: '#E4E4E4',
-        borderRadius: 10,
         borderWidth: 1,
-        height: 30,
-        width: 200
-
-    }, btnCalcular: {
-        marginTop: 20,
         borderRadius: 10,
-        borderWidth: 1,
-        backgroundColor: '#1D983A',
+        borderColor: "gray",
+        margin: 5,
+    }, fontTextoTitulo: {
+        fontSize: 20
+    }, fontTextoCorpo: {
+        fontSize: 25,
+        fontWeight: 'bold'
+    }, linha: {
+        flexDirection: "row",
+        margin: 5
+    }, coluna: {
+        flex: 2
+    }, valor: {
+        flex: 4
+    }, imagem: {
+        width: 50,
+        height: 50,
+        alignSelf: "center"
+    }, fontTextoTituloCard: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 20
     }
-
 });
