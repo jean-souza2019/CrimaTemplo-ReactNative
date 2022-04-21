@@ -1,17 +1,7 @@
+import React from 'react'
 import { View, StyleSheet, Button } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
 
 export default function Header({ tela, navigation }) {
-    // const [tela, setTela] = useState("")
-
-    // useLayoutEffect(() => {
-    //     if (props.tela)
-    //         setTela(props.tela)
-
-    //     console.log(tela);
-    // }, [])
-
-
     const moveToSobre = () => {
         navigation.replace("Sobre")
     }

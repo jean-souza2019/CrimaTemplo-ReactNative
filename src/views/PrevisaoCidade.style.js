@@ -7,6 +7,7 @@ export default styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: "gray",
         margin: 5,
+        marginBottom: 40
     }, fontTextoTitulo: {
         fontSize: 20
     }, fontTextoCorpo: {

@@ -9,18 +9,6 @@ import Cidade from '../components/Cidade'
 import cidades from '../services/database/cidades.json';
 
 export default function Home({ navigation }) {
-
-
-    useLayoutEffect(() => {
-        // console.log(cidades);
-    }, [])
-
-    const Item = ({ title }) => (
-        <View style={styles.item}>
-            <Text style={styles.title}>{title}</Text>
-        </View>
-    );
-
     return (
         <View style={styles.background}>
             <Header tela={"Menu"} navigation={navigation} />
